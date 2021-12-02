@@ -6,7 +6,12 @@ namespace FleckChatApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            string port = "9999";
+
+            ChatServer server = new ChatServer(port);
+
+            // Keep alive
+            Console.ReadLine();
         }
     }
 }
