@@ -25,17 +25,23 @@ namespace FleckChatApp
             }
             catch(Exception ex)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Error");
-                Console.WriteLine(ex.Message);
-
-                Console.ForegroundColor = ConsoleColor.White;
+                LogError(ex);
+                
                 if (app.IsActive)
                 {
                     app.Close();
                 }
             }
 
+        }
+
+        private static void LogError(Exception ex)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Error");
+            Console.WriteLine(ex.Message);
+
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         private static int GetPort(string[] args)
