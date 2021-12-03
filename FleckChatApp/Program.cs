@@ -25,9 +25,11 @@ namespace FleckChatApp
             }
             catch(Exception ex)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Error");
                 Console.WriteLine(ex.Message);
 
+                Console.ForegroundColor = ConsoleColor.White;
                 if (app.IsActive)
                 {
                     app.Close();

@@ -56,7 +56,10 @@ namespace FleckChatApp
 
         private void OnMessage(string message)
         {
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine(message);
+            Console.ForegroundColor = ConsoleColor.White;
+            
         }
 
         public void SendMessage(string message)

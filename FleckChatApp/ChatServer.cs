@@ -74,7 +74,9 @@ namespace FleckChatApp
 
         private void TellEveryone(string text)
         {
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("[Tell everyone] " + text);
+            Console.ForegroundColor = ConsoleColor.White;
             AllSockets.ForEach(socket => socket.Send(text));
         }
 

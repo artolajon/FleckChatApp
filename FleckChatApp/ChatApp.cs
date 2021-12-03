@@ -31,6 +31,7 @@ namespace FleckChatApp
 
         private void PrintHeaderInfo()
         {
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("");
             Console.WriteLine(@"    ________          __      ________          __     ___              ");
             Console.WriteLine(@"   / ____/ /__  _____/ /__   / ____/ /_  ____ _/ /_   /   |  ____  ____ ");
@@ -45,6 +46,7 @@ namespace FleckChatApp
             Console.WriteLine("");
             Console.WriteLine($"Write {Constants.ExitCommand} to close");
             Console.WriteLine("");
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         public void Input(string text)
