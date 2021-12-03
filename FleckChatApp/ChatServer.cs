@@ -26,16 +26,12 @@ namespace FleckChatApp
         public void Close()
         {
             AllSockets.ForEach(socket => socket.Close());
-
             Server.Dispose();
-
         }
 
         private void OnOpen(IWebSocketConnection socket)
         {
             Console.WriteLine("New connection was created");
-
-            AllSockets.Add(socket);
             socket.Send("Hi! Who are you?");
         }
 
@@ -69,7 +65,8 @@ namespace FleckChatApp
             {
                 // Save usarname in list
                 string newUsername = message;
-                
+
+                AllSockets.Add(socket);
                 UserList[connectionId] = newUsername;
                 TellEveryone($"{newUsername} has logged in");
             }
