@@ -35,11 +35,23 @@ namespace FleckChatApp
                     // wait for new messages
                     byte[] buffer = new byte[1024];
                     var result = await ClientWebSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.Token);
-                    string message = Encoding.UTF8.GetString(buffer, 0, result.Count);
-
-                    OnMessage(message);
+                    if (result.MessageType == WebSocketMessageType.Text)
+                    {
+                        string message = Encoding.UTF8.GetString(buffer, 0, result.Count);
+                        OnMessage(message);
+                    }
+                    else if(result.MessageType == WebSocketMessageType.Close)
+                    {
+                        OnClose();
+                    }
+                    
                 }
             });
+        }
+
+        private void OnClose()
+        {
+            Console.WriteLine("Connection closed");
         }
 
         private void OnMessage(string message)
