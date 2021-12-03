@@ -7,6 +7,7 @@ namespace FleckChatApp
     internal class ChatApp
     {
         public bool IsServer;
+        public bool IsActive = false;
         private ChatServer Server;
         private ChatClient Client;
 
@@ -20,6 +21,7 @@ namespace FleckChatApp
             {
                 Client = new ChatClient(port);
             }
+            IsActive = true;
         }
 
         public void Input(string text)
@@ -35,10 +37,12 @@ namespace FleckChatApp
             if (IsServer)
             {
                 Server.Close();
+                Console.WriteLine("Server closed");
             }
             else
             {
                 Client.Close();
+                
             }
         }
 

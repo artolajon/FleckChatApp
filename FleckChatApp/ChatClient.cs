@@ -22,13 +22,14 @@ namespace FleckChatApp
 
             Connection.ContinueWith(async tsk =>
             {
-                MessageListener();
+                await MessageListener();
             });
+            
         }
 
-        private void MessageListener()
+        private Task MessageListener()
         {
-            Task.Run(async () => {
+            return Task.Run(async () => {
                 while (true)
                 {
                     // wait for new messages
@@ -38,7 +39,7 @@ namespace FleckChatApp
 
                     OnMessage(message);
                 }
-            }).Start();
+            });
         }
 
         private void OnMessage(string message)

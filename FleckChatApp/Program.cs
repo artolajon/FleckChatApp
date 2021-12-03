@@ -10,17 +10,29 @@ namespace FleckChatApp
 
         static void Main(string[] args)
         {
-            int port = 9999;
-
             ChatApp app = new ChatApp();
+            try
+            {
+                int port = 9999;
 
-            app.IsServer = CheckIfItHasToBeAServer(port);
-            app.Start(port);
+                app.IsServer = CheckIfItHasToBeAServer(port);
+                app.Start(port);
 
-            TextInputListener((text) => app.Input(text));
+                TextInputListener((text) => app.Input(text));
 
-            // When listener ends means we need to close the aplication
-            app.Close();
+                // When listener ends means we need to close the aplication
+                app.Close();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Error");
+                Console.WriteLine(ex.Message);
+
+                if (app.IsActive)
+                {
+                    app.Close();
+                }
+            }
 
         }
 
