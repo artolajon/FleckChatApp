@@ -74,6 +74,7 @@ namespace FleckChatApp
 
         private void TellEveryone(string text)
         {
+            Console.WriteLine("[Tell everyone] " + text);
             AllSockets.ForEach(socket => socket.Send(text));
         }
 
