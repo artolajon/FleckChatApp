@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FleckChatApp.Helpers;
+using System;
 
 namespace FleckChatApp
 {
@@ -11,26 +12,38 @@ namespace FleckChatApp
             Console.WriteLine("Is server? (y/n)");
             bool isServer = Console.ReadLine() == "y";
 
+            ChatServer server = null;
+            ChatClient client = null;
+
             if (isServer)
             {
-                ChatServer server = new ChatServer(port);
-
-                // Keep alive
-                Console.ReadLine();
+                server = new ChatServer(port);
             }
             else
             {
-                ChatClient client = new ChatClient(port);
-
-                string text;
-                do
-                {
-                    text = Console.ReadLine();
-                    client.SendMessage(text);
-                } while (text != "EXIT");
-                client.Close();
-               
+                client = new ChatClient(port);
             }
+
+            string text;
+            do
+            {
+                text = Console.ReadLine();
+                if (isServer && text != Constants.ExitCommand)
+                {
+                    client.SendMessage(text);
+                }
+                    
+            } while (text != Constants.ExitCommand);
+
+            if (isServer)
+            {
+                server.Close();
+            }
+            else
+            {
+                client.Close();
+            }
+            
 
         }
     }

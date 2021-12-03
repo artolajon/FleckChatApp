@@ -23,6 +23,14 @@ namespace FleckChatApp
             });
         }
 
+        public void Close()
+        {
+            AllSockets.ForEach(socket => socket.Close());
+
+            Server.Dispose();
+
+        }
+
         private void OnOpen(IWebSocketConnection socket)
         {
             Console.WriteLine("New connection was created");
@@ -71,5 +79,7 @@ namespace FleckChatApp
         {
             AllSockets.ForEach(socket => socket.Send(text));
         }
+
+        
     }
 }
