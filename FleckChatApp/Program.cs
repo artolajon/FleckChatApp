@@ -5,46 +5,41 @@ namespace FleckChatApp
 {
     internal class Program
     {
+
         static void Main(string[] args)
         {
             string port = "9999";
 
-            Console.WriteLine("Is server? (y/n)");
-            bool isServer = Console.ReadLine() == "y";
+            ChatApp app = new ChatApp();
 
-            ChatServer server = null;
-            ChatClient client = null;
+            app.IsServer = CheckIfIsAServer();
+            app.Start(port);
 
-            if (isServer)
-            {
-                server = new ChatServer(port);
-            }
-            else
-            {
-                client = new ChatClient(port);
-            }
+            TextInputListener((text) => app.Input(text));
 
+            // When listener ends means we need to close the aplication
+            app.Close();
+
+        }
+
+        private static void TextInputListener(Action<string> callback)
+        {
             string text;
             do
             {
                 text = Console.ReadLine();
-                if (isServer && text != Constants.ExitCommand)
+                if (text != Constants.ExitCommand)
                 {
-                    client.SendMessage(text);
+                    callback(text);
                 }
-                    
+
             } while (text != Constants.ExitCommand);
+        }
 
-            if (isServer)
-            {
-                server.Close();
-            }
-            else
-            {
-                client.Close();
-            }
-            
-
+        private static bool CheckIfIsAServer()
+        {
+            Console.WriteLine("Is server? (y/n)");
+            return Console.ReadLine() == "y";
         }
     }
 }
