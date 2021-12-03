@@ -2,6 +2,7 @@
 using FleckChatApp.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace FleckChatApp
@@ -25,7 +26,9 @@ namespace FleckChatApp
 
         public void Close()
         {
-            AllSockets.ForEach(socket => socket.Close());
+            var sockets = AllSockets.ToList();
+            sockets.ForEach(socket => socket.Close());
+
             Server.Dispose();
         }
 

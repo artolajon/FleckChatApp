@@ -69,6 +69,7 @@ namespace FleckChatApp
                 Client.Close();
                 
             }
+            IsActive = false;
         }
 
 
