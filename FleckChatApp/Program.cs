@@ -13,7 +13,7 @@ namespace FleckChatApp
             ChatApp app = new ChatApp();
             try
             {
-                int port = 9999;
+                int port = GetPort(args);
 
                 app.IsServer = CheckIfItHasToBeAServer(port);
                 app.Start(port);
@@ -34,6 +34,24 @@ namespace FleckChatApp
                 }
             }
 
+        }
+
+        private static int GetPort(string[] args)
+        {
+            int port;
+            string input = null;
+            if (args.Any())
+            {
+                input = args[0];
+            }
+
+            while (!int.TryParse(input, out port))
+            {
+                Console.WriteLine("Write a port number");
+                input = Console.ReadLine();
+            }
+
+            return port;
         }
 
         private static void TextInputListener(Action<string> callback)
