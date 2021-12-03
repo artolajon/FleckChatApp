@@ -1,5 +1,7 @@
 ﻿using FleckChatApp.Helpers;
 using System;
+using System.Linq;
+using System.Net.NetworkInformation;
 
 namespace FleckChatApp
 {
@@ -8,11 +10,11 @@ namespace FleckChatApp
 
         static void Main(string[] args)
         {
-            string port = "9999";
+            int port = 9999;
 
             ChatApp app = new ChatApp();
 
-            app.IsServer = CheckIfIsAServer();
+            app.IsServer = CheckIfItHasToBeAServer(port);
             app.Start(port);
 
             TextInputListener((text) => app.Input(text));
@@ -36,10 +38,18 @@ namespace FleckChatApp
             } while (text != Constants.ExitCommand);
         }
 
-        private static bool CheckIfIsAServer()
+        private static bool CheckIfItHasToBeAServer(int port)
         {
-            Console.WriteLine("Is server? (y/n)");
-            return Console.ReadLine() == "y";
+            // Evaluate current system ports.
+            IPGlobalProperties ipGlobalProperties = IPGlobalProperties.GetIPGlobalProperties();
+            var activePorts = ipGlobalProperties.GetActiveTcpListeners().Concat(ipGlobalProperties.GetActiveUdpListeners());
+
+            // If the port isn't on the lists means is free
+            bool freePort = true;
+            freePort = !activePorts.Where(c => c.Port == port).Any();
+
+            return freePort;
+
         }
     }
 }

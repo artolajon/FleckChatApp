@@ -10,7 +10,7 @@ namespace FleckChatApp
         private ChatServer Server;
         private ChatClient Client;
 
-        public void Start(string port)
+        public void Start(int port)
         {
             if (IsServer)
             {

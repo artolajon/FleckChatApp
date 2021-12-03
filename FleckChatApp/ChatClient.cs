@@ -14,7 +14,7 @@ namespace FleckChatApp
         private CancellationTokenSource CancellationToken;
         private Task Connection;
 
-        public ChatClient(string port)
+        public ChatClient(int port)
         {
             ClientWebSocket = new ClientWebSocket();
             CancellationToken = new CancellationTokenSource();

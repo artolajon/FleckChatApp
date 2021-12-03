@@ -12,7 +12,7 @@ namespace FleckChatApp
         private Dictionary<Guid, string> UserList = new Dictionary<Guid, string>();
         List<IWebSocketConnection> AllSockets = new List<IWebSocketConnection>();
 
-        public ChatServer(string port)
+        public ChatServer(int port)
         {
             Server = new WebSocketServer($"{Constants.BaseUrl}:{port}");
             Server.Start(socket =>
