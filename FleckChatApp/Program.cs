@@ -8,10 +8,30 @@ namespace FleckChatApp
         {
             string port = "9999";
 
-            ChatServer server = new ChatServer(port);
+            Console.WriteLine("Is server? (y/n)");
+            bool isServer = Console.ReadLine() == "y";
 
-            // Keep alive
-            Console.ReadLine();
+            if (isServer)
+            {
+                ChatServer server = new ChatServer(port);
+
+                // Keep alive
+                Console.ReadLine();
+            }
+            else
+            {
+                ChatClient client = new ChatClient(port);
+
+                string text;
+                do
+                {
+                    text = Console.ReadLine();
+                    client.SendMessage(text);
+                } while (text != "EXIT");
+                client.Close();
+               
+            }
+
         }
     }
 }
